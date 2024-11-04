@@ -128,7 +128,7 @@ export const rules: Rule[] = [
 ].map(
   (rule): Rule => ({
     ...rule,
-    libs: rule.libs || [],
+    libs: rule.libs ?? [],
   }),
 );
 

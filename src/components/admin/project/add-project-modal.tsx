@@ -211,7 +211,7 @@ const AddProjectModal = ({
               size={"sm"}
               onClick={() => {
                 const url = "https://github.com/midday-ai/v1";
-                navigator.clipboard.writeText(url);
+                void navigator.clipboard.writeText(url);
                 setGithubUrl(url);
                 toast.success("Test Github URL copied");
               }}

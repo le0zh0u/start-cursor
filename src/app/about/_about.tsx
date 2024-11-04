@@ -32,13 +32,13 @@ const About = () => {
               <AvatarFallback>le0zh0u</AvatarFallback>
             </Avatar>
             <h2 className="text-4xl font-semibold text-foreground">
-              Hi, I'm le0zh0u 👋🏻
+              Hi, I&apos;m le0zh0u 👋🏻
             </h2>
           </div>
           <div className="flex max-w-screen-md flex-col gap-2">
             <p>
               <span className="text-foreground">
-                I'm a full stack developer
+                I&apos;m a full stack developer
               </span>{" "}
               who loves to build things for myself and others.
             </p>
