@@ -1,4 +1,4 @@
-![Start Cursor](./public/start-cursor.png)
+![Start Cursor](./public/logo.jpg)
 
 # Start Cursor
 
