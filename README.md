@@ -1,4 +1,6 @@
-![Start Cursor](./public/logo.jpg)
+<div align="center">
+<img src="./public/logo.jpg" width="180" alt="logo">
+</div>
 
 # Start Cursor
 
