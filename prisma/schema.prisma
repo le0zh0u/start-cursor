@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Category {
+    id   Int    @id @default(autoincrement())
+    name String @map("name")
+    slug String @unique @map("slug")
+    desc String @map("desc")
+    icon String @map("icon")
+
+    createdAt            DateTime               @default(now()) @map("created_at")
+    updatedAt            DateTime               @updatedAt @map("updated_at")
+    ruleTemplateCategory RuleTemplateCategory[]
+    categoryCollection   CategoryCollection     @relation(fields: [categoryCollectionId], references: [id])
+    categoryCollectionId Int                    @map("category_collection_id")
+
+    @@map("categories")
+}
+
+model CategoryCollection {
+    id         Int        @id @default(autoincrement()) @map("id")
+    name       String     @map("name")
+    sort       Int        @default(0) @map("sort")
+    createdAt  DateTime   @default(now()) @map("created_at")
+    updatedAt  DateTime   @updatedAt @map("updated_at")
+    categories Category[]
+
+    @@map("category_collections")
+}
+
+model RuleTemplate {
+    id                   Int                    @id @default(autoincrement())
+    title                String                 @map("title")
+    content              String                 @map("content")
+    slug                 String                 @unique @map("slug")
+    author               RuleAuthor             @relation(fields: [ruleAuthorId], references: [id])
+    ruleAuthorId         Int                    @map("rule_author_id")
+    createdAt            DateTime               @default(now()) @map("created_at")
+    updatedAt            DateTime               @updatedAt @map("updated_at")
+    ruleTemplateCategory RuleTemplateCategory[]
+    githubProject        GithubProject?
+
+    @@map("rule_templates")
+}
+
+model RuleTemplateCategory {
+    ruleTemplateId Int          @map("rule_template_id")
+    categoryId     Int          @map("category_id")
+    ruleTemplate   RuleTemplate @relation(fields: [ruleTemplateId], references: [id], onDelete: Cascade)
+    category       Category     @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+    @@id([ruleTemplateId, categoryId])
+    @@map("rule_template_category_rel")
+}
+
+model RuleAuthor {
+    id           Int            @id @default(autoincrement()) @map("id")
+    name         String         @map("name")
+    link         String         @map("link")
+    avatar       String         @map("avatar")
+    createdAt    DateTime       @default(now()) @map("created_at")
+    updatedAt    DateTime       @updatedAt @map("updated_at")
+    ruleTempates RuleTemplate[]
+
+    @@map("rule_authors")
+}
+
+model GithubProject {
+    id             Int          @id @default(autoincrement()) @map("id")
+    name           String       @map("name")
+    // slug from github project full name
+    slug           String       @unique @map("slug")
+    stars          Int          @default(0) @map("stars")
+    description    String       @default("") @map("description")
+    url            String       @map("url")
+    cursorRuleUrl  String       @default("") @map("cursor_rule_url")
+    ruleTemplateId Int          @unique @map("rule_template_id")
+    ruleTemplate   RuleTemplate @relation(fields: [ruleTemplateId], references: [id])
+    createdAt      DateTime     @default(now()) @map("created_at")
+    updatedAt      DateTime     @updatedAt @map("updated_at")
+
+    @@map("github_projects")
+}
