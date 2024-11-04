@@ -139,7 +139,7 @@ export const ruleRouter = createTRPCRouter({
     async ({ ctx, input }) => {
       // const ruleTemplates = await cursorRulesFinderLoader.load("");
 
-      (async () => {
+      void (async () => {
         try {
           // 执行后台任务
           await cursorRulesFinderLoader.load("");
