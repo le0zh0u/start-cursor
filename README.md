@@ -42,6 +42,12 @@ My Thoughts: `In the future, the developers will be divided into two parts: codi
 - Start the app: `pnpm run dev`
 - Visit `http://localhost:3000`
 
+## Variables
+
+- `DATABASE_URL`: The URL of the database to connect to.
+- `ADMIN_SLUG`: The slug for the admin page.
+- `NEXT_PUBLIC_APP_URL`: The URL of the app.
+
 ## Scripts
 
 ### Database
