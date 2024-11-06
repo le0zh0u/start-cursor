@@ -71,8 +71,9 @@ const CategoryIconList = () => {
               ? category.icon
               : `/icons/${slug}.svg`
           }
-          name="slug"
+          name={slug}
         />
+        <h2 className="sr-only">{category.name}</h2>
       </Button>
     );
   };

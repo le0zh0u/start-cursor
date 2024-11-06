@@ -7,15 +7,44 @@ import { TRPCReactProvider } from "@/trpc/react";
 import { Toaster } from "@/components/ui/sonner";
 import Navbar from "./_components/header";
 import Footer from "./_components/footer";
+import { env } from "@/env";
 
 export const metadata: Metadata = {
   title: "Start Cursor | 10x faster for developers",
   description:
-    "Start Cursor is a tool that helps you code with cursor faster and more efficiently.",
+    "Start Cursor is a space that helps you code with cursor faster and more efficiently.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
   robots: {
     index: true,
     follow: true,
+  },
+  // Open Graph metadata
+  openGraph: {
+    title: "Start Cursor | 10x faster for developers",
+    description:
+      "Start Cursor is a space that helps you code with cursor faster and more efficiently.",
+    url: env.NEXT_PUBLIC_APP_URL,
+    siteName: "Start Cursor",
+    images: [
+      {
+        url: `${env.NEXT_PUBLIC_APP_URL}/logo.jpg`,
+        width: 1200, // This is the recommended size in pixels
+        height: 1200,
+        alt: "Start Cursor og-image",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+
+  // Twitter metadata
+  twitter: {
+    card: "summary_large_image",
+    title: "Start Cursor | 10x faster for developers",
+    description:
+      "Start Cursor is a space that helps you code with cursor faster and more efficiently.",
+    creator: "@le0zh0u",
+    images: [`${env.NEXT_PUBLIC_APP_URL}/logo.jpg`],
   },
 };
 

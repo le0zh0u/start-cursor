@@ -104,52 +104,56 @@ const RuleCard = ({
   };
 
   return (
-    <Card className="group relative flex h-full w-full flex-col overflow-hidden">
-      <CardHeader className="py-4">
-        <div className="flex flex-row items-center justify-between">
-          <CardTitle className="text-md">
-            {project ? <GithubTitle /> : <AuthorTitle />}
-          </CardTitle>
-          {/* <CardDescription className="text-xs">
+    <>
+      {/* <h2 className="sr-only">{project?.slug}</h2> */}
+
+      <Card className="group relative flex h-full w-full flex-col overflow-hidden">
+        <CardHeader className="py-4">
+          <div className="flex flex-row items-center justify-between">
+            <CardTitle className="text-md">
+              {project ? <GithubTitle /> : <AuthorTitle />}
+            </CardTitle>
+            {/* <CardDescription className="text-xs">
         Card Description
       </CardDescription> */}
-          <div className="flex items-center justify-center">
-            <RuleCopyButton ruleContent={rule.content} />
-            {/* <RuleShareButton ruleSlug={rule.slug} /> */}
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="p-0">
-        <ScrollArea className="h-96 bg-gray-100 p-4">
-          <p className="whitespace-pre-line text-sm">
-            {searchKeyword
-              ? highlightText(rule.content, searchKeyword)
-              : rule.content}
-          </p>
-        </ScrollArea>
-      </CardContent>
-      <CardFooter className="px-0 py-4">
-        {categories.length == 0 && <div>No categories </div>}
-        {categories.length > 0 && (
-          <ScrollArea className="w-full px-4" type="scroll">
-            <div className="flex flex-row flex-nowrap gap-2">
-              {categories.map((item) => {
-                return (
-                  <Badge
-                    key={item.id}
-                    className="text-nowrap"
-                    variant="secondary"
-                  >
-                    {item.name}
-                  </Badge>
-                );
-              })}
+            <div className="flex items-center justify-center">
+              <RuleCopyButton ruleContent={rule.content} />
+              {/* <RuleShareButton ruleSlug={rule.slug} /> */}
             </div>
-            <ScrollBar orientation="horizontal" />
+          </div>
+        </CardHeader>
+        <CardContent className="p-0">
+          <ScrollArea className="h-96 bg-gray-100 p-4">
+            <p className="whitespace-pre-line text-sm">
+              {searchKeyword
+                ? highlightText(rule.content, searchKeyword)
+                : rule.content}
+            </p>
           </ScrollArea>
-        )}
-      </CardFooter>
-    </Card>
+        </CardContent>
+        <CardFooter className="px-0 py-4">
+          {categories.length == 0 && <div>No categories </div>}
+          {categories.length > 0 && (
+            <ScrollArea className="w-full px-4" type="scroll">
+              <div className="flex flex-row flex-nowrap gap-2">
+                {categories.map((item) => {
+                  return (
+                    <Badge
+                      key={item.id}
+                      className="text-nowrap"
+                      variant="secondary"
+                    >
+                      {item.name}
+                    </Badge>
+                  );
+                })}
+              </div>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
+          )}
+        </CardFooter>
+      </Card>
+    </>
   );
 };
 

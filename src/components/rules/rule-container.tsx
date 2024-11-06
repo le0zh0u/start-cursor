@@ -16,6 +16,7 @@ import { Separator } from "../ui/separator";
 import { Checkbox } from "../ui/checkbox";
 import NotFoundRules from "./not-found-rules";
 import RulesLoadingGrid from "./rules-loading-grid";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 
 const RuleContainer = () => {
   const [keyword, setKeyword] = useState("");
@@ -75,48 +76,54 @@ const RuleContainer = () => {
   }, [categoryCollectionList, setCategoryCollectionList]);
 
   return (
-    <Container className="flex w-full flex-col items-center justify-center gap-8 py-4">
+    <Container className="flex w-full flex-col items-center justify-center gap-4 py-4">
+      <h2 className="sr-only">Rule List</h2>
       {/* search params */}
-      <div className="border-dark-800 flex w-full items-start justify-between border-b pb-4">
-        <div className="flex items-start justify-start gap-4">
-          <Input
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            className="w-80"
-            placeholder="Search Rules"
-          />
+      <div className="border-dark-800 flex w-full flex-col items-center justify-start gap-4 border-b pb-4">
+        <div className="flex w-full items-start justify-between gap-4">
+          <div className="flex flex-1 items-start justify-start gap-4">
+            <Input
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              className="min-w-40 max-w-80"
+              placeholder="Search Rules"
+            />
 
-          <div className="flex flex-wrap items-center gap-2">
-            {searchCategoryIdList.map((id) => {
-              return (
-                <Badge key={id} variant="secondary" className="rounded-md p-2">
-                  {categoryList.find((item) => item.id === id)?.name}
-                  <XIcon
-                    className="ml-2 h-4 w-4 cursor-pointer"
-                    onClick={(e) => {
-                      setSearchCategoryIdList(
-                        searchCategoryIdList.filter((item) => item !== id),
-                      );
-                    }}
-                  />
-                </Badge>
-              );
-            })}
+            <div className="hidden flex-wrap items-center gap-2 sm:flex">
+              {searchCategoryIdList.map((id) => {
+                return (
+                  <Badge
+                    key={id}
+                    variant="secondary"
+                    className="rounded-md p-2"
+                  >
+                    {categoryList.find((item) => item.id === id)?.name}
+                    <XIcon
+                      className="ml-2 h-4 w-4 cursor-pointer"
+                      onClick={(e) => {
+                        setSearchCategoryIdList(
+                          searchCategoryIdList.filter((item) => item !== id),
+                        );
+                      }}
+                    />
+                  </Badge>
+                );
+              })}
+            </div>
           </div>
-        </div>
 
-        <Button
-          size="sm"
-          variant={"default"}
-          onClick={() => {
-            setFilterOpen(!filterOpen);
-          }}
-        >
-          {filterOpen ? <XIcon /> : <SlidersHorizontal />}
-          Filter
-        </Button>
+          <Button
+            size="sm"
+            variant={"default"}
+            onClick={() => {
+              setFilterOpen(!filterOpen);
+            }}
+          >
+            {filterOpen ? <XIcon /> : <SlidersHorizontal />}
+            Filter
+          </Button>
 
-        {/* <div className="flex items-center justify-end">
+          {/* <div className="flex items-center justify-end">
           <Button
             size={"sm"}
             onClick={async () => {
@@ -126,60 +133,88 @@ const RuleContainer = () => {
             Search
           </Button>
         </div> */}
-      </div>
+        </div>
 
-      {filterOpen && (
-        <div className="flex w-full flex-col gap-4">
-          {categoryCollectionList?.map((collection) => (
-            <div className="flex w-full flex-col gap-2" key={collection.id}>
-              <p className="text-md font-semibold">{collection.name}</p>
-              <Separator />
-              <div className="flex flex-wrap gap-1">
-                {collection.categories.map((category) => (
-                  <div
-                    key={category.id}
-                    className="flex cursor-pointer items-center gap-1 px-2 hover:bg-muted"
-                    onClick={() => {
-                      if (searchCategoryIdList.includes(category.id)) {
-                        setSearchCategoryIdList(
-                          searchCategoryIdList.filter(
-                            (id) => id !== category.id,
-                          ),
-                        );
-                      } else {
-                        setSearchCategoryIdList([
-                          ...searchCategoryIdList,
-                          category.id,
-                        ]);
-                      }
-                    }}
+        {searchCategoryIdList && searchCategoryIdList.length > 0 && (
+          <ScrollArea className="flex w-full pb-2 sm:hidden" type="always">
+            <div className="flex flex-row flex-nowrap gap-2">
+              {searchCategoryIdList.map((id) => {
+                return (
+                  <Badge
+                    key={id}
+                    variant="secondary"
+                    className="text-nowrap rounded-md p-2"
                   >
-                    <Checkbox
-                      id={category.id.toString()}
-                      checked={searchCategoryIdList.includes(category.id)}
-                      onCheckedChange={(checked) => {
-                        if (checked) {
-                          setSearchCategoryIdList([
-                            ...searchCategoryIdList,
-                            category.id,
-                          ]);
-                        } else {
+                    {categoryList.find((item) => item.id === id)?.name}
+                    <XIcon
+                      className="ml-2 h-4 w-4 cursor-pointer"
+                      onClick={(e) => {
+                        setSearchCategoryIdList(
+                          searchCategoryIdList.filter((item) => item !== id),
+                        );
+                      }}
+                    />
+                  </Badge>
+                );
+              })}
+            </div>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        )}
+
+        {filterOpen && (
+          <div className="flex w-full flex-col gap-4 px-4">
+            {categoryCollectionList?.map((collection) => (
+              <div className="flex w-full flex-col gap-2" key={collection.id}>
+                <p className="text-md font-semibold">{collection.name}</p>
+                <Separator />
+                <div className="flex flex-wrap gap-1">
+                  {collection.categories.map((category) => (
+                    <div
+                      key={category.id}
+                      className="flex cursor-pointer items-center gap-1 px-2 hover:bg-muted"
+                      onClick={() => {
+                        if (searchCategoryIdList.includes(category.id)) {
                           setSearchCategoryIdList(
                             searchCategoryIdList.filter(
                               (id) => id !== category.id,
                             ),
                           );
+                        } else {
+                          setSearchCategoryIdList([
+                            ...searchCategoryIdList,
+                            category.id,
+                          ]);
                         }
                       }}
-                    />
-                    {category.name}
-                  </div>
-                ))}
+                    >
+                      <Checkbox
+                        id={category.id.toString()}
+                        checked={searchCategoryIdList.includes(category.id)}
+                        onCheckedChange={(checked) => {
+                          if (checked) {
+                            setSearchCategoryIdList([
+                              ...searchCategoryIdList,
+                              category.id,
+                            ]);
+                          } else {
+                            setSearchCategoryIdList(
+                              searchCategoryIdList.filter(
+                                (id) => id !== category.id,
+                              ),
+                            );
+                          }
+                        }}
+                      />
+                      {category.name}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
       {!isLoading &&
         (!results ||
           (results.pages.length === 1 &&
@@ -245,7 +280,7 @@ const RuleContainer = () => {
 
       <div
         ref={ref}
-        className="flex w-full items-center justify-center text-foreground"
+        className="flex w-full items-center justify-center py-4 text-foreground"
       >
         {isLoading || isFetchingNextPage ? <RulesLoadingGrid /> : ""}
       </div>

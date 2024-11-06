@@ -1,10 +1,23 @@
 import React from "react";
 import About from "./_about";
-import Footer from "../_components/footer";
-import Navbar from "../_components/header";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Start Cursor | About",
+  description: "About Start Cursor",
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 const AboutPage = () => {
-  return <About />;
+  return (
+    <>
+      <About />
+    </>
+  );
 };
 
 export default AboutPage;
