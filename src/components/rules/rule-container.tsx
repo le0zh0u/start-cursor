@@ -82,14 +82,18 @@ const RuleContainer = () => {
       <div className="border-dark-800 flex w-full flex-col items-center justify-start gap-4 border-b pb-4">
         <div className="flex w-full items-start justify-between gap-4">
           <div className="flex flex-1 items-start justify-start gap-4">
-            <Input
-              value={keyword}
-              onChange={(e) => setKeyword(e.target.value)}
-              className="min-w-40 max-w-80"
-              placeholder="Search Rules"
-            />
+            <Button
+              size="sm"
+              variant={"default"}
+              onClick={() => {
+                setFilterOpen(!filterOpen);
+              }}
+            >
+              {filterOpen ? <XIcon /> : <SlidersHorizontal />}
+              Filter
+            </Button>
 
-            <div className="hidden flex-wrap items-center gap-2 sm:flex">
+            <div className="hidden flex-wrap items-center gap-2 md:flex">
               {searchCategoryIdList.map((id) => {
                 return (
                   <Badge
@@ -111,17 +115,12 @@ const RuleContainer = () => {
               })}
             </div>
           </div>
-
-          <Button
-            size="sm"
-            variant={"default"}
-            onClick={() => {
-              setFilterOpen(!filterOpen);
-            }}
-          >
-            {filterOpen ? <XIcon /> : <SlidersHorizontal />}
-            Filter
-          </Button>
+          <Input
+            value={keyword}
+            onChange={(e) => setKeyword(e.target.value)}
+            className="min-w-40 max-w-80"
+            placeholder="Search Rules"
+          />
 
           {/* <div className="flex items-center justify-end">
           <Button
@@ -136,7 +135,7 @@ const RuleContainer = () => {
         </div>
 
         {searchCategoryIdList && searchCategoryIdList.length > 0 && (
-          <ScrollArea className="flex w-full pb-2 sm:hidden" type="always">
+          <ScrollArea className="flex w-full pb-2 md:hidden" type="always">
             <div className="flex flex-row flex-nowrap gap-2">
               {searchCategoryIdList.map((id) => {
                 return (
@@ -164,54 +163,56 @@ const RuleContainer = () => {
 
         {filterOpen && (
           <div className="flex w-full flex-col gap-4 px-4">
-            {categoryCollectionList?.map((collection) => (
-              <div className="flex w-full flex-col gap-2" key={collection.id}>
-                <p className="text-md font-semibold">{collection.name}</p>
-                <Separator />
-                <div className="flex flex-wrap gap-1">
-                  {collection.categories.map((category) => (
-                    <div
-                      key={category.id}
-                      className="flex cursor-pointer items-center gap-1 px-2 hover:bg-muted"
-                      onClick={() => {
-                        if (searchCategoryIdList.includes(category.id)) {
-                          setSearchCategoryIdList(
-                            searchCategoryIdList.filter(
-                              (id) => id !== category.id,
-                            ),
-                          );
-                        } else {
-                          setSearchCategoryIdList([
-                            ...searchCategoryIdList,
-                            category.id,
-                          ]);
-                        }
-                      }}
-                    >
-                      <Checkbox
-                        id={category.id.toString()}
-                        checked={searchCategoryIdList.includes(category.id)}
-                        onCheckedChange={(checked) => {
-                          if (checked) {
-                            setSearchCategoryIdList([
-                              ...searchCategoryIdList,
-                              category.id,
-                            ]);
-                          } else {
+            {categoryCollectionList
+              ?.filter((item) => item.categories.length > 0)
+              .map((collection) => (
+                <div className="flex w-full flex-col gap-2" key={collection.id}>
+                  <p className="text-md font-semibold">{collection.name}</p>
+                  <Separator />
+                  <div className="flex flex-wrap gap-1">
+                    {collection.categories.map((category) => (
+                      <div
+                        key={category.id}
+                        className="flex cursor-pointer items-center gap-1 px-2 hover:bg-muted"
+                        onClick={() => {
+                          if (searchCategoryIdList.includes(category.id)) {
                             setSearchCategoryIdList(
                               searchCategoryIdList.filter(
                                 (id) => id !== category.id,
                               ),
                             );
+                          } else {
+                            setSearchCategoryIdList([
+                              ...searchCategoryIdList,
+                              category.id,
+                            ]);
                           }
                         }}
-                      />
-                      {category.name}
-                    </div>
-                  ))}
+                      >
+                        <Checkbox
+                          id={category.id.toString()}
+                          checked={searchCategoryIdList.includes(category.id)}
+                          onCheckedChange={(checked) => {
+                            if (checked) {
+                              setSearchCategoryIdList([
+                                ...searchCategoryIdList,
+                                category.id,
+                              ]);
+                            } else {
+                              setSearchCategoryIdList(
+                                searchCategoryIdList.filter(
+                                  (id) => id !== category.id,
+                                ),
+                              );
+                            }
+                          }}
+                        />
+                        {category.name}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         )}
       </div>
@@ -221,7 +222,7 @@ const RuleContainer = () => {
             results.pages[0]!.rules.length === 0)) && <NotFoundRules />}
 
       {results && results.pages.length > 0 && (
-        <div className="grid grid-cols-1 grid-rows-1 gap-6 py-4 lg:grid-cols-2 xl:grid-cols-3">
+        <div className="grid grid-cols-1 grid-rows-1 gap-6 py-4 md:grid-cols-2 xl:grid-cols-3">
           {/* <Card className="group relative flex h-full w-full flex-col overflow-hidden">
               <CardHeader>
                 <CardTitle className="text-md">Card Title</CardTitle>

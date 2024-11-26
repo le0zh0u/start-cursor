@@ -10,7 +10,7 @@
 
   Standard.js Rules
   - Use 2 space indentation.
-  - Use single quotes for strings except to avoid escaping.
+  - Use single quotes for strings exceptet to avoid escaping.
   - No semicolons (unless required to disambiguate statements).
   - No unused variables.
   - Add a space after keywords.

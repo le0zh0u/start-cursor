@@ -11,38 +11,13 @@ import AddProjectModal from "./project/add-project-modal";
 
 const DataManagePanel = () => {
   const { slug } = useAdminStore();
-
-  const [
-    loadingDataFromCursorRulesFinder,
-    setLoadingDataFromCursorRulesFinder,
-  ] = useState(false);
-
-  const { mutate: importDataFromCursorRulesFinder } =
-    api.rule.importDataFromCursorRulesFinder.useMutation({
-      onSuccess: (data) => {
-        if (data.success) {
-          toast.success("Data imported successfully");
-        } else {
-          toast.error("Failed to import data");
-        }
-        setLoadingDataFromCursorRulesFinder(false);
-      },
-      onError: (error) => {
-        toast.error(error.message);
-        setLoadingDataFromCursorRulesFinder(false);
-      },
-      onSettled: () => {
-        setLoadingDataFromCursorRulesFinder(true);
-      },
-    });
-
   return (
     <div className="flex w-full flex-col items-start justify-start gap-4">
       <h2 className="text-start text-xl font-bold">Data Management</h2>
       <div className="flex flex-col items-center justify-start gap-4 md:flex-row">
         <Card>
           <CardHeader>
-            <CardTitle>Rules</CardTitle>
+            <CardTitle>Rule</CardTitle>
           </CardHeader>
           <CardFooter>
             <div className="flex items-center justify-center gap-2">
@@ -52,16 +27,6 @@ const DataManagePanel = () => {
               >
                 Rules
               </Link>
-
-              <Button
-                size={"sm"}
-                onClick={async () => {
-                  importDataFromCursorRulesFinder();
-                }}
-                disabled={loadingDataFromCursorRulesFinder}
-              >
-                From Cursor Rules Finder
-              </Button>
             </div>
           </CardFooter>
         </Card>
