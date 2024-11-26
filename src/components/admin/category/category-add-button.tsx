@@ -64,7 +64,9 @@ const CategoryAddButton = () => {
       toast.success("Category created successfully");
       setOpen(false);
       form.reset();
-      refetchCategoryList();
+      if (refetchCategoryList) {
+        refetchCategoryList();
+      }
     },
     onError: (error) => {
       toast.error(error.message);

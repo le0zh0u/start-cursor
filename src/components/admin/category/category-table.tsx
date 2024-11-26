@@ -36,9 +36,12 @@ const CategoryDataTable = () => {
     keyword: debouncedKeyword,
     collectionId: selectedCollection,
   });
-
   useEffect(() => {
-    setRefetchCategoryList(refetch);
+    setRefetchCategoryList(() => {
+      void refetch().catch((error) => {
+        console.error(error);
+      });
+    });
   }, [refetch, setRefetchCategoryList]);
 
   useEffect(() => {

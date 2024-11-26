@@ -1,11 +1,12 @@
 import { Category, CategoryCollection } from "@prisma/client";
+import { RefetchOptions } from "@tanstack/react-query";
 import { create } from "zustand";
 
 interface AdminStoreState {
   slug: string;
 
   categoryCollectionList: CategoryCollection[];
-  refetchCategoryList: () => void;
+  refetchCategoryList?: () => void;
 }
 
 interface AdminStoreAction {
@@ -20,7 +21,7 @@ export const useAdminStore = create<AdminStoreState & AdminStoreAction>(
   (set, get) => ({
     slug: "",
     categoryCollectionList: [],
-    refetchCategoryList: () => {},
+    refetchCategoryList: undefined,
     setSlug: (slug: string) => set((state) => ({ ...state, slug })),
     setCategoryCollectionList: (categoryCollectionList: CategoryCollection[]) =>
       set((state) => ({ ...state, categoryCollectionList })),

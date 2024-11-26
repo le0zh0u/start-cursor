@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { LatestCategoryCollection } from "@/app/_components/post";
 import { api, HydrateClient } from "@/trpc/server";
 import HeroSection from "./_components/hero";
 import Navbar from "./_components/header";

@@ -25,7 +25,9 @@ const CategoryDeleteButton = ({ categoryId }: { categoryId: number }) => {
   const { mutate: deleteCategory } = api.category.delete.useMutation({
     onSuccess: () => {
       toast.success("Category deleted successfully");
-      refetchCategoryList();
+      if (refetchCategoryList) {
+        refetchCategoryList();
+      }
     },
     onError: (error) => {
       toast.error(error.message);
