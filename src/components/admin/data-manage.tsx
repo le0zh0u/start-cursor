@@ -42,6 +42,12 @@ const DataManagePanel = () => {
               >
                 Categories
               </Link>
+              <Link
+                href={`/admin/${slug}/category-collection`}
+                className={buttonVariants({ variant: "default", size: "sm" })}
+              >
+                Collections
+              </Link>
             </div>
           </CardFooter>
         </Card>

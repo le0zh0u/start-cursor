@@ -164,7 +164,8 @@ const RuleContainer = () => {
         {filterOpen && (
           <div className="flex w-full flex-col gap-4 px-4">
             {categoryCollectionList
-              ?.filter((item) => item.categories.length > 0)
+              ?.sort((a, b) => a.sort - b.sort)
+              .filter((item) => item.categories.length > 0)
               .map((collection) => (
                 <div className="flex w-full flex-col gap-2" key={collection.id}>
                   <p className="text-md font-semibold">{collection.name}</p>

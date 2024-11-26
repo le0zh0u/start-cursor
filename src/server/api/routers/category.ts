@@ -170,6 +170,36 @@ export const categoryRouter = createTRPCRouter({
       });
     }),
 
+  changeCollectionName: publicProcedure
+    .input(z.object({ collectionId: z.number(), name: z.string().min(1) }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.categoryCollection.update({
+        where: { id: input.collectionId },
+        data: { name: input.name },
+      });
+
+      return input.name;
+    }),
+
+  changeCollectionSort: publicProcedure
+    .input(z.object({ collectionId: z.number(), sort: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.categoryCollection.update({
+        where: { id: input.collectionId },
+        data: { sort: input.sort },
+      });
+
+      return input.sort;
+    }),
+
+  deleteCollection: publicProcedure
+    .input(z.object({ collectionId: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      await ctx.db.categoryCollection.delete({
+        where: { id: input.collectionId },
+      });
+    }),
+
   //   getLatest: publicProcedure.query(async ({ ctx }) => {
   //     const post = await ctx.db.post.findFirst({
   //       orderBy: { createdAt: "desc" },
