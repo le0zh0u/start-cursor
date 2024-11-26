@@ -103,7 +103,7 @@ const CategoryAddButton = () => {
                 <FormItem>
                   <FormLabel>Category Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="Name" {...field} />
                   </FormControl>
                   <FormDescription>
                     This is category public display name.
@@ -119,7 +119,7 @@ const CategoryAddButton = () => {
                 <FormItem>
                   <FormLabel>Category Slug</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="Slug" {...field} />
                   </FormControl>
                   <FormDescription>This is category slug.</FormDescription>
                   <FormMessage />
@@ -134,7 +134,7 @@ const CategoryAddButton = () => {
                 <FormItem>
                   <FormLabel>Category Description</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="shadcn" {...field} />
+                    <Textarea placeholder="Description" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -148,7 +148,7 @@ const CategoryAddButton = () => {
                 <FormItem>
                   <FormLabel>Category Icon</FormLabel>
                   <FormControl>
-                    <Input placeholder="shadcn" {...field} />
+                    <Input placeholder="Icon" {...field} />
                   </FormControl>
                   <FormDescription>This is category icon.</FormDescription>
                   <FormMessage />
@@ -170,7 +170,7 @@ const CategoryAddButton = () => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select a verified email to display" />
+                        <SelectValue placeholder="Select Collection" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
