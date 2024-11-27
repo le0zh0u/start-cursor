@@ -3,6 +3,8 @@ import CategoryDataTable from "@/components/admin/category/category-table";
 import { FlexContainer } from "@/components/flex-container";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { env } from "@/env";
+import Link from "next/link";
 import React from "react";
 
 const page = () => {
@@ -12,6 +14,11 @@ const page = () => {
 
       <div className="flex w-full items-center justify-between gap-4">
         <h1 className="text-3xl font-bold">Category</h1>
+        <Button variant="outline" asChild>
+          <Link href={`/admin/${env.ADMIN_SLUG}/category/category-collection`}>
+            Collections
+          </Link>
+        </Button>
       </div>
       <Separator />
 

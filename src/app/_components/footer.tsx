@@ -37,6 +37,7 @@ const Footer = () => {
       <footer>
         <div className="grid grid-cols-2 gap-8 lg:grid-cols-6">
           <div className="col-span-2 flex h-full items-center justify-between md:items-start lg:col-span-3 lg:flex-col">
+            <img src="/logo.jpg" className="w-8" alt="logo" />
             <h1 className="font-mono text-2xl font-bold">Start Cursor</h1>
 
             <ul className="flex items-center space-x-6 text-muted-foreground">

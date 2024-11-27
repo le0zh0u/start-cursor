@@ -195,6 +195,16 @@ export const categoryRouter = createTRPCRouter({
   deleteCollection: publicProcedure
     .input(z.object({ collectionId: z.number() }))
     .mutation(async ({ ctx, input }) => {
+      const categories = await ctx.db.category.findMany({
+        where: {
+          categoryCollectionId: input.collectionId,
+        },
+      });
+
+      if (categories.length > 0) {
+        throw new Error("Collection has categories, please delete categories first");
+      }
+
       await ctx.db.categoryCollection.delete({
         where: { id: input.collectionId },
       });

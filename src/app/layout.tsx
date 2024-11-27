@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/sonner";
 import Navbar from "./_components/header";
 import Footer from "./_components/footer";
 import { env } from "@/env";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 export const metadata: Metadata = {
   title: "Start Cursor | 10x faster for developers",
@@ -62,6 +63,7 @@ export default function RootLayout({
           </main>
         </TRPCReactProvider>
         <Toaster richColors position="top-center" />
+        <GoogleAnalytics gaId="G-HT4Y1M2FV7" />
       </body>
     </html>
   );

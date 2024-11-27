@@ -17,6 +17,7 @@ import { Checkbox } from "../ui/checkbox";
 import NotFoundRules from "./not-found-rules";
 import RulesLoadingGrid from "./rules-loading-grid";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { cn } from "@/lib/utils";
 
 const RuleContainer = () => {
   const [keyword, setKeyword] = useState("");

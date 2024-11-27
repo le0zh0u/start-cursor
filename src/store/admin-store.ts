@@ -15,6 +15,7 @@ interface AdminStoreAction {
     categoryCollectionList: CategoryCollection[],
   ) => void;
   setRefetchCategoryList: (refetchCategoryList: () => void) => void;
+  getAdminBaseUrl: () => string;
 }
 
 export const useAdminStore = create<AdminStoreState & AdminStoreAction>(
@@ -27,7 +28,7 @@ export const useAdminStore = create<AdminStoreState & AdminStoreAction>(
       set((state) => ({ ...state, categoryCollectionList })),
     setRefetchCategoryList: (refetchCategoryList: () => void) =>
       set((state) => ({ ...state, refetchCategoryList })),
-
+    getAdminBaseUrl: () => `/admin/${get().slug}`,
     // bears: 0,
     // increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
     // removeAllBears: () => set({ bears: 0 }),
