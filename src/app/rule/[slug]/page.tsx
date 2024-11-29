@@ -8,16 +8,74 @@ import {
   BreadcrumbSeparator,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+
 import { db } from "@/server/db";
-import { Copy, SquareArrowOutUpRight } from "lucide-react";
-import Link from "next/link";
+
 import React from "react";
-import { RxAvatar } from "react-icons/rx";
-import { toast } from "sonner";
 import RulePage from "./_rule-page";
 import { replaceLastOccurrence } from "@/server/lib/utils";
+import { Metadata, ResolvingMetadata } from "next";
+
+type Props = {
+  params: { slug: string };
+  searchParams: Record<string, string | string[] | undefined>;
+};
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  // 从 params 中读取 slug
+  const slug = params.slug;
+  if (!slug) {
+    return {};
+  }
+
+  // 获取数据
+  const rule = await db.ruleTemplate.findFirst({
+    where: {
+      slug: slug,
+    },
+    include: {
+      author: true,
+      ruleTemplateCategory: true,
+    },
+  });
+
+  if (!rule) {
+    return {};
+  }
+
+  // 可选：读取父级 metadata
+  const previousImages = (await parent).openGraph?.images ?? [];
+
+  const description =
+    rule.content && rule.content.length > 0
+      ? rule.content.slice(0, 100)
+      : `Start Cursor Rule for ${rule.title}`;
+
+  const title = `Start Cursor | ${rule.title} | Cursor Rule`;
+
+  return {
+    title: title,
+    description: description,
+    openGraph: {
+      title: title,
+      description: description,
+      images: [...previousImages],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: [...previousImages],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 const page = async ({ params }: { params: { slug: string } }) => {
   let slug = params.slug;

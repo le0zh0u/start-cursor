@@ -3,6 +3,12 @@ import React from "react";
 import TutorialsContainer from "./tutorials-container";
 import { Container } from "@/components/Container";
 import { BackgroundLines } from "@/components/ui/background-lines";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Start Cursor | Tutorials",
+  description: "Learn how to use Cursor AI with these tutorials",
+};
 
 const page = () => {
   return (

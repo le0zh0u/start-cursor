@@ -12,7 +12,65 @@ import {
 } from "@/components/ui/breadcrumb";
 import { db } from "@/server/db";
 import { api, HydrateClient } from "@/trpc/server";
+import { Metadata, ResolvingMetadata } from "next";
 import React from "react";
+
+type Props = {
+  params: { slug: string };
+  searchParams: Record<string, string | string[] | undefined>;
+};
+
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
+  // 从 params 中读取 slug
+  const slug = params.slug;
+  if (!slug) {
+    return {};
+  }
+
+  // 获取数据
+  const category = await db.category.findFirst({
+    where: {
+      slug,
+    },
+  });
+
+  if (!category) {
+    return {};
+  }
+
+  // 可选：读取父级 metadata
+  const previousImages = (await parent).openGraph?.images ?? [];
+
+  const description =
+    category.desc && category.desc.length > 0
+      ? category.desc
+      : `Start Cursor Rule Collection Page for ${category.name}`;
+
+  const title = `Start Cursor | ${category.name} | Collection`;
+
+  return {
+    title: title,
+    description: description,
+    openGraph: {
+      title: title,
+      description: description,
+      images: [...previousImages],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: title,
+      description: description,
+      images: [...previousImages],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 const notFound = () => {
   return <div> Category Not Found</div>;
