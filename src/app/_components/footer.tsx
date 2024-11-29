@@ -19,7 +19,7 @@ const sections = [
     title: "Advanced",
     links: [
       { name: "Projects", href: "/projects" },
-      { name: "Guide", href: "/guide" },
+      { name: "Tutorials", href: "/tutorials" },
     ],
   },
   {
