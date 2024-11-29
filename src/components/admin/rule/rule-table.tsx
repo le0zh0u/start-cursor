@@ -36,7 +36,7 @@ const RuleDataTable = () => {
     api.rule.importDataFromCursorRulesFinder.useMutation({
       onSuccess: (data) => {
         if (data.success) {
-          toast.success("Data imported successfully");
+          toast.success("Start to import data.");
         } else {
           toast.error("Failed to import data");
         }

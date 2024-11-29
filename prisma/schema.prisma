@@ -90,3 +90,24 @@ model GithubProject {
 
     @@map("github_projects")
 }
+
+model Tutorial {
+    id          Int    @id @default(autoincrement())
+    title       String @default("") @map("title") @db.VarChar(255)
+    slug        String @unique @default("") @map("slug") @db.VarChar(255)
+    description String @default("") @map("description") @db.VarChar(1024)
+    link        String @map("link") @db.VarChar(512)
+    source      String @default("YOUTUBE") @map("source")
+    rawValue    String @default("") @map("raw_value") @db.Text
+
+    author       String @default("") @map("author") @db.VarChar(255)
+    authorLink   String @default("") @map("author_link") @db.VarChar(512)
+    authorAvatar String @default("") @map("author_avatar") @db.VarChar(512)
+
+    language String @default("") @map("language") @db.VarChar(16)
+
+    createdAt DateTime @default(now()) @map("created_at")
+    updatedAt DateTime @updatedAt @map("updated_at")
+
+    @@map("tutorials")
+}

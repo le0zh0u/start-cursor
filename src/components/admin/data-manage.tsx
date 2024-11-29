@@ -67,6 +67,22 @@ const DataManagePanel = () => {
             </div>
           </CardFooter>
         </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Tutorial</CardTitle>
+          </CardHeader>
+          <CardFooter>
+            <div className="flex items-center justify-center gap-2">
+              <Link
+                href={`/admin/${slug}/tutorial`}
+                className={buttonVariants({ variant: "default", size: "sm" })}
+              >
+                Tutorials
+              </Link>
+            </div>
+          </CardFooter>
+        </Card>
       </div>
     </div>
   );

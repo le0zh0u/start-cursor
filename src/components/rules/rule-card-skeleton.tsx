@@ -7,11 +7,17 @@ import {
   CardTitle,
 } from "../ui/card";
 import { Skeleton } from "../ui/skeleton";
+import { cn } from "@/lib/utils";
 
-const RuleCardSkeleton = () => {
+const RuleCardSkeleton = ({ className }: { className?: string }) => {
   return (
-    <Card className="group relative flex h-full w-full flex-col overflow-hidden">
-      <CardHeader className="py-4">
+    <Card
+      className={cn(
+        "group relative flex h-full w-full flex-col overflow-hidden",
+        className,
+      )}
+    >
+      <CardHeader className="w-full py-4">
         <div className="flex flex-row items-center justify-start">
           <CardTitle className="text-md">
             <Skeleton className="h-[20px] w-[100px] rounded-sm" />

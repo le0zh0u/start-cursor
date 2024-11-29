@@ -93,8 +93,8 @@ const navbarItems = [
     link: "/projects",
   },
   {
-    title: "Guide",
-    link: "/guide",
+    title: "Tutorials",
+    link: "/tutorials",
   },
   {
     title: "About",
