@@ -48,7 +48,7 @@ export const tutorialRouter = createTRPCRouter({
         const newTutorial = await ctx.db.tutorial.create({
           data: {
             link: input.link,
-            slug: input.slug,
+            slug: slug,
             title: input.title,
             description: input.description,
             source: input.source,
