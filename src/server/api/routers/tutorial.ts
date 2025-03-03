@@ -26,9 +26,14 @@ export const tutorialRouter = createTRPCRouter({
     .input(TutorialFormSchema)
     .mutation(async ({ ctx, input }) => {
       try {
+        let slug = input.slug;
+        if (slug === "") {
+          slug = input.link.split("/").pop() ?? "";
+        }
+
         const tutorial = await ctx.db.tutorial.findFirst({
           where: {
-            slug: input.slug,
+            slug: slug,
           },
         });
 

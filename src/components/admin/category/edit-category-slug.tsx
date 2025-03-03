@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { api } from "@/trpc/react";
-import { Check, X } from "lucide-react";
+import { Check, Link, X } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -57,7 +57,16 @@ const EditCategorySlug = ({
           </Button>
         </div>
       ) : (
-        <span onClick={() => setEditOpen(!editOpen)}>{editSlug}</span>
+        <div className="flex items-center justify-start gap-1">
+          <span onClick={() => setEditOpen(!editOpen)}>{editSlug}</span>
+          <Button
+            size={"sm"}
+            variant={"secondary"}
+            onClick={() => window.open(`/category/${editSlug}`, "_blank")}
+          >
+            <Link />
+          </Button>
+        </div>
       )}
     </div>
   );
